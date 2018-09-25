@@ -1,4 +1,6 @@
-# Android-Calculator
+
+Android-Calculator
+
 This project will be dedicated to an android calculator.
 
 Basic features include.
@@ -13,3 +15,5 @@ Basic features include.
 9. Large buttons.
 
 So far it is stable.
+
+Fixed compound calculation instability. Most recent edit: September 25, 2018.
