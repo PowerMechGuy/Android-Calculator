@@ -52,6 +52,8 @@ boolean anstracker;
 //pre ans calculation boolean
 boolean precalc;
 
+//cleared boolean
+boolean cleared;
 
 @Override
 protected void onCreate(Bundle savedInstanceState)
@@ -125,8 +127,9 @@ public class calculate implements View.OnClickListener
     equals.setOnClickListener(this);
     delete.setOnClickListener(this);
     
-    //initializing num
-    num = "";
+    //initializing num and number
+    num = "0";
+    number = "0";
     
     //initializing tracker
     tracker = '@';
@@ -139,6 +142,9 @@ public class calculate implements View.OnClickListener
     ans = 0;
     anstracker = false;
     precalc = false;
+    
+    //initializing cleared boolean
+    cleared = true;
 
     
    }
@@ -150,60 +156,80 @@ public class calculate implements View.OnClickListener
     switch(p1.getId())
         {
       case R.id.one:
-       
+       if(num == "0" && precalc && anstracker == false)
+        nextCalc();
+        
        label = 1;
        
        break;
        
       case R.id.two:
+       if(num == "0" && precalc && anstracker == false)
+        nextCalc();
        
        label = 2;
 
        break;
        
       case R.id.three:
+       if(num == "0" && precalc && anstracker == false)
+        nextCalc();
        
        label = 3;
 
        break;
        
       case R.id.four:
+       if(num == "0" && precalc && anstracker == false)
+        nextCalc();
        
        label = 4;
 
        break;
        
       case R.id.five:
+       if(num == "0" && precalc && anstracker == false)
+       nextCalc();
        
        label = 5;
 
        break;
        
       case R.id.six:
+       if(num == "0" && precalc && anstracker == false)
+        nextCalc();
        
        label = 6;
 
        break;
        
       case R.id.seven:
+       if(num == "0" && precalc && anstracker == false)
+        nextCalc();
        
        label = 7;
 
        break;
        
       case R.id.eight:
+       if(num == "0" && precalc && anstracker == false)
+        nextCalc();
        
        label = 8;
 
        break;
        
       case R.id.nine:
+       if(num == "0" && precalc && anstracker == false)
+        nextCalc();
        
        label = 9;
 
        break;
        
       case R.id.zero:
+       if(num == "0" && precalc && anstracker == false)
+        nextCalc();
        
        label = 0;
 
@@ -274,20 +300,22 @@ public class calculate implements View.OnClickListener
      else if(tracker == 'n')
          {
        outputnumber.setText("Positives Only!");
-       num = "";
+       num = "0";
        function = '@';
       }
       
      else if(tracker == 'z')
          {
        outputnumber.setText("Cannot Divide by Zero!");
-       num ="";
+       num ="0";
        function = '@';
       }
       
      else if(tracker == '@')
          {
-       
+       if(num == "0")
+        num = "";
+        
        num = num + String.valueOf(label);
        if(num.length() == 10)
            {
@@ -300,6 +328,7 @@ public class calculate implements View.OnClickListener
            {
          number = num;
          outputnumber.setText(num);
+         cleared = false;
         }
        
        
@@ -314,90 +343,138 @@ public class calculate implements View.OnClickListener
        switch(function)
            {
          case '+':
-          if((outputnumber.getText() != "0") && precalc)
-           anstracker = true;
-          outputnumber.setText("+");
-          loading(); 
-          break;
+          if(precalc == false && cleared)
+          {
+           tracker = '?';
+           updatenumber();
+           break;
+          }
+          else
+          {
+           if((outputnumber.getText() != "0") && precalc)
+            anstracker = true;
+           outputnumber.setText("+");
+           loading(); 
+           break;
+          }
           
          case '-':
-          if((outputnumber.getText() != "0") && precalc)
-           anstracker = true;
-          outputnumber.setText("-");
-          loading();
-          break;
+          if(precalc == false && cleared)
+          {
+           tracker = '?';
+           updatenumber();
+           break;
+          }
+          else
+          {
+           if((outputnumber.getText() != "0") && precalc)
+            anstracker = true;
+           outputnumber.setText("-");
+           loading();
+           break;
+          }
           
          case '*':
-          if((outputnumber.getText() != "0") && precalc)
-           anstracker = true;
-          outputnumber.setText("*");
-          loading();
-          break;
+          if(precalc == false && cleared)
+          {
+           tracker = '?';
+           updatenumber();
+           break;
+          }
+          else
+          {
+           if((outputnumber.getText() != "0") && precalc)
+            anstracker = true;
+           outputnumber.setText("*");
+           loading();
+           break;
+          }
           
          case '/':
-          if((outputnumber.getText() != "0") && precalc)
+          if(precalc == false && cleared)
           {
-           anstracker = true;
+           tracker = '?';
+           updatenumber();
+           break;
           }
-          outputnumber.setText("/");
-          loading();
-          break;
+          else
+          {
+           if((outputnumber.getText() != "0") && precalc)
+           {
+            anstracker = true;
+           }
+           outputnumber.setText("/");
+           loading();
+           break;
+          }
           
          case '=':
-          if(compute(number) == -1)
+          if(precalc == false && cleared)
+          {
+           tracker = '?';
+           updatenumber();
+           break;
+          }
+          else
+          {
+           if(compute(number) == -1)
               {
             updatenumber();
+
            }
-           
-          else if(operator == '/')
+
+           else if(operator == '/')
               {
             precalc = true;
             outputnumber.setText(String.valueOf(divresult));
             ans = (long) divresult;
             number = num;
-            num = "";
+            num = "0";
             divresult = 0;
             result = 0;
+            divfirst = 0;
+            divsecond = 0;
+            first = 0;
+            second = 0;
             break;
            }
-           
-          else if(round.length() > 11)
-              {
-            
+
+           /*else if(round.length() > 11)
+            {
+
             roundedresult = result;
             outputnumber.setText(String.valueOf(roundedresult));
-            
+
             result = 0;
             roundedresult = 0;             result = 0;
-            num = "";
-            
+            num = "0";
+
             break;
-            
-            
-           }
-          else
+
+
+            }*/
+           else
               {
             precalc = true;
             outputnumber.setText(String.valueOf(compute(number)));
             number = num;
             ans = result;
-            num = "";
+            num = "0";
             result = 0;
+            first = 0;
+            second = 0;
             break;
            }
-          
-          
+          }
         }
-        
       }
-      
      tracker = '@';
-     
-     
     }
     
    public void del()
        {
+     if(num == "0")
+      num = "";
      if(num.length() == 0)
      {
       clearOutput();
@@ -434,27 +511,46 @@ public class calculate implements View.OnClickListener
      }
      else
      {
-      first = Integer.parseInt(number);
-      divfirst = first;
-      num = "";
+      if(number == "0")
+      {
+       first = 0;
+       divfirst = 0;
+      }
+      else
+      {
+       first = Integer.parseInt(number);
+       divfirst = first;
+       num = "0";
+      }
      }
     }
     
    
    public void clearOutput()
        {
-     num = "";
+     num = "0";
      function = '@';
      tracker = '?';
      anstracker = false;
      ans = 0;
      precalc = false;
+     cleared = true;
     }
+    
+   public void nextCalc()
+   {
+    num = "0";
+    function = '@';
+    tracker = '@';
+    precalc = false;
+   }
     
    public long compute(String input)
        {
-     
-     second = Integer.parseInt(input);
+     if(number == "0")
+      second = 0;
+     else
+      second = Integer.parseInt(input);
      
      switch(operator)
          {
