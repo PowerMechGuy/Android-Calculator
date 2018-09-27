@@ -14,6 +14,12 @@ Basic features include.
 8. Right to left display.
 9. Large buttons.
 
-So far it is: unstable.
+So far it is: STABLE
 
-Fixed compound calculation instability. Most recent edit: September 27, 2018.
+Fixed compound calculation instability.
+
+All errors have been dealt with.
+Num is no longer initialized as null.
+App no longer crashes.
+
+ Most recent edit: September 27, 2018.
