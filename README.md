@@ -14,6 +14,6 @@ Basic features include.
 8. Right to left display.
 9. Large buttons.
 
-So far it is stable.
+So far it is: unstable.
 
-Fixed compound calculation instability. Most recent edit: September 25, 2018.
+Fixed compound calculation instability. Most recent edit: September 27, 2018.
