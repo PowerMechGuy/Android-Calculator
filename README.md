@@ -22,4 +22,9 @@ All errors have been dealt with.
 Num is no longer initialized as null.
 App no longer crashes.
 
- Most recent edit: September 27, 2018.
+As of December:
+There are no more errors.
+Commas have been added.
+Code is now mostly commented.
+
+ Most recent edit: December 6, 2018.
